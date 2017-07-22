@@ -1,6 +1,10 @@
 __*Token Submission*__
 Token submitted.
 
-*Status*: {{ response["status"]|e }}
+*Status*: `{{ subresp["status"]|e }}`
 
-*Reference ID*: {{ response["reference"]|e }}
+*Reference ID*: `{{ subresp["reference"]|e }}`
+
+{% if subresp["status"] == 'error' %}
+*Errors*: `{{ subresp["error_msg"]|e }}`
+{% endif %}

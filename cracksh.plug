@@ -1,0 +1,9 @@
+[Core]
+Name = CrackSh
+Module = cracksh
+
+[Documentation]
+Description = An Errbot plugin for the https://crack.sh API.
+
+[Python]
+Version = 3

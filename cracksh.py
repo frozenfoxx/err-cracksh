@@ -29,8 +29,8 @@ class CrackSh(BotPlugin):
             else:
                 return None
 
-    @arg_botcmd('format', type=str, required=True, help="Format of token", template="cracksh_submit")
-    @arg_botcmd('token', type=str, required=True, help="Token to submit", template="cracksh_submit")
+    @arg_botcmd('format', type=str, help="Format of token", template="cracksh_submit")
+    @arg_botcmd('token', type=str, help="Token to submit", template="cracksh_submit")
     @arg_botcmd('--customerid', dest='customer_id', type=str, default=None, help="Customer ID", template="cracksh_submit")
     @arg_botcmd('--email', dest='email', type=str, default=None, help="Email for updates", template="cracksh_submit")
     @arg_botcmd('--asap', dest='asap', type=int, default=0, help="Whether to rush a job", template="cracksh_submit")
@@ -68,7 +68,7 @@ class CrackSh(BotPlugin):
 
         return {'subresp': response.json()}
 
-    @arg_botcmd('reference', type=str, required=True, help="Reference ID", template="cracksh_status")
+    @arg_botcmd('reference', type=str, help="Reference ID", template="cracksh_status")
     def cracksh_status(self, msg, reference=None):
         """ Check the status of a submitted job
             Examples:

@@ -1,6 +1,4 @@
 __*Token Submission*__
-Token submitted.
-
 *Status*: {{ subresp["status"]|e }}
 
 *Reference ID*: {{ subresp["reference"]|e }}

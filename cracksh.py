@@ -1,4 +1,4 @@
-* -*- coding: utf -*-
+# -*- coding: utf -*-
 
 from errbot import BotPlugin, arg_botcmd, webhook
 import argparse

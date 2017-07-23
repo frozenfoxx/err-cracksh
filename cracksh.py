@@ -5,6 +5,7 @@ import argparse
 import requests
 
 class CrackSh(BotPlugin):
+    """ Interface for https://crack.sh API """
 
     def get_configuration_template(self):
         """ Configuration entries """
@@ -12,7 +13,6 @@ class CrackSh(BotPlugin):
         config = {
             'email': '',
             'customer_id': '',
-            'email': '',
             'api_url': 'https://crack.sh/api',
             'status_url': 'https://crack.sh/status'
         }
@@ -31,8 +31,8 @@ class CrackSh(BotPlugin):
 
     @arg_botcmd('format', type=str, required=True, help="Format of token", template="cracksh_submit")
     @arg_botcmd('token', type=str, required=True, help="Token to submit", template="cracksh_submit")
-    @arg_botcmd('--customerid', dest='customer_id', type=str, default=self._check_config('customer_id'), help="Customer ID", template="cracksh_submit")
-    @arg_botcmd('--email', dest='email', type=str, default=self._check_config('email'), help="Email for updates", template="cracksh_submit")
+    @arg_botcmd('--customerid', dest='customer_id', type=str, default=None, help="Customer ID", template="cracksh_submit")
+    @arg_botcmd('--email', dest='email', type=str, default=None, help="Email for updates", template="cracksh_submit")
     @arg_botcmd('--asap', dest='asap', type=int, default=0, help="Whether to rush a job", template="cracksh_submit")
     def cracksh_submit(self, msg, format=None, token=None, customer_id=None, email=None, asap=None):
         """ Submit a token to https://crack.sh
@@ -45,11 +45,19 @@ class CrackSh(BotPlugin):
         sess = requests.Session()
         head = {}
         url = self._check_config('api_url')
-        payload = { 'token': format + ':' + token, 'asap': asap }
-        if customer_id != '':
+        payload = {'token': format + ':' + token, 'asap': asap}
+
+        # Check for customer_id override
+        if customer_id != None:
             payload['customer_id'] = customer_id
-        elif email != '':
+        elif self.config['customer_id'] != '':
+            payload['customer_id'] = self.config['customer_id']
+
+        # Check for email override
+        if email != None:
             payload['email'] = email
+        elif self.config['email'] != '':
+            payload['email'] = self.config['email']
 
         try:
             response = sess.post(url, headers=head, data=payload, timeout=30)

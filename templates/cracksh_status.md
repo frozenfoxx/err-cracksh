@@ -1,2 +1,2 @@
 __*Job Status*__
-*Status*:  `{{ statresp["status"]|e }}`
+*Status*:  {{ statresp["status"]|e }}

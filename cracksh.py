@@ -13,7 +13,8 @@ class CrackSh(BotPlugin):
             'email': '',
             'customer_id': '',
             'email': '',
-            'api_url': 'https://crack.sh/api'
+            'api_url': 'https://crack.sh/api',
+            'status_url': 'https://crack.sh/status'
         }
         return config
 
@@ -34,7 +35,7 @@ class CrackSh(BotPlugin):
     @arg_botcmd('--email', dest='email', type=str, default=self._check_config('email'), help="Email for updates", template="cracksh_submit")
     @arg_botcmd('--asap', dest='asap', type=int, default=0, help="Whether to rush a job", template="cracksh_submit")
     def cracksh_submit(self, msg, format=None, token=None, customer_id=None, email=None, asap=None):
-        """ Submit a token to Crack.sh
+        """ Submit a token to https://crack.sh
             Examples:
             !cracksh submit [format] [sometoken]
             !cracksh submit --email someone@somewhere.net [format] [sometoken]
@@ -58,6 +59,27 @@ class CrackSh(BotPlugin):
         self.check_response(response)
 
         return {'subresp': response.json()}
+
+    @arg_botcmd('reference', type=str, required=True, help="Reference ID", template="cracksh_status")
+    def cracksh_status(self, msg, reference=None):
+        """ Check the status of a submitted job
+            Examples:
+            !cracksh status [reference]
+        """
+
+        sess = requests.Session()
+        head = {}
+        url = self._check_config('status_url')
+        payload = { 'id': reference }
+
+        try:
+            response = sess.get(url, headers=head, data=payload, timeout=30)
+            self.log.debug('URL sent: {}'.format(url))
+        except Exception as e:
+            self.log.debug(e)
+        self.check_response(response)
+
+        return {'statresp': response.json()}
 
     @staticmethod
     def check_response(response):

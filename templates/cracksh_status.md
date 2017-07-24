@@ -10,4 +10,7 @@ __*Job Status*__
 {% elif statresp["queued"] -%}
 
 *Progress*: approximately {{ statresp["progress"]|e }} hours to begin
+{% elif statresp["error"] -%}
+
+*Details*: {{ statresp["error_msg"]|e }}
 {%- endif %}

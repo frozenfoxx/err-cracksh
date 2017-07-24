@@ -80,7 +80,7 @@ class CrackSh(BotPlugin):
         payload = {'reference': reference}
 
         try:
-            response = sess.get(url, headers=head, data=payload, timeout=30)
+            response = sess.get(url, headers=head, parameters=payload, timeout=30)
             self.log.debug('URL sent: {}'.format(url))
         except Exception as e:
             self.log.debug(e)

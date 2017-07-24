@@ -1,11 +1,11 @@
-# errbot-cracksh
+# err-cracksh
 Errbot plugin to query [https://crack.sh](https://crack.sh)'s API.
 
 # Prerequisites
 * Python 3+
 
 # Installation
-* `!repos install https://github.com/frozenfoxx/errbot-cracksh`
+* `!repos install https://github.com/frozenfoxx/err-cracksh`
 * `!plugin config CrackSh {'api_url': 'https://crack.sh/api', 'customer_id': '', 'email': ''}`
 
 # Configuration

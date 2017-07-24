@@ -1,6 +1,6 @@
 # -*- coding: utf -*-
 
-from errbot import BotPlugin, arg_botcmd, webhook
+from errbot import BotPlugin, arg_botcmd
 import argparse
 import requests
 
@@ -13,8 +13,7 @@ class CrackSh(BotPlugin):
         config = {
             'email': '',
             'customer_id': '',
-            'api_url': 'https://crack.sh/api',
-            'status_url': 'https://crack.sh/status'
+            'api_url': 'https://crack.sh/api'
         }
         return config
 
@@ -77,8 +76,8 @@ class CrackSh(BotPlugin):
 
         sess = requests.Session()
         head = {}
-        url = self._check_config('status_url')
-        payload = { 'id': reference }
+        url = self._check_config('api_url')
+        payload = { 'reference': reference }
 
         try:
             response = sess.get(url, headers=head, data=payload, timeout=30)

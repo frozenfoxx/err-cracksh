@@ -77,7 +77,7 @@ class CrackSh(BotPlugin):
         sess = requests.Session()
         head = {}
         url = self._check_config('api_url')
-        payload = { 'reference': reference }
+        payload = {'reference': reference}
 
         try:
             response = sess.get(url, headers=head, data=payload, timeout=30)
